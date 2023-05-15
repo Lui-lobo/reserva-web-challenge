@@ -1,37 +1,76 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.auth.main')
 
-        <title>Entrar</title>
+@section('title', 'Login')
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700" rel="stylesheet">
+@section('content')
 
-        <!-- Bootstrap Css -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" />
+<x-header/>
 
-        <!-- Css Padrão -->
-        <link rel="stylesheet" href="/css/global.css"/>
-        <link rel="stylesheet" href="/css/AuthPagsCss/auth.css"/>
-  
+<main>
+    <div class="container-fluid mt-5 p-1">
+        <div class="row justify-content-center">
+            <div class="col-md-8 p-2">
+                <div class="card  bg-dark">
+                    <div class="h2 d-flex justify-content-center p-1 text-light">Entre em sua conta para realizar sua reserva</div>
 
-    </head>
-    <body class="antialiased">
-    <!--Criando o header da autenticação-->
-       <header class="container-fluid">
-            <nav class="navbar bg-body-tertiary">
-                <div class="container-fluid d-flex align-items-center">
-                    <a class="navbar-brand" href="#">
-                        <span class="d-flex align-items-center">
-                            <img src="/img/box.svg" class="logo" alt="Reserva Web">
-                            <h1 class="fs-2">Reserva Web</h1>
-                        </span>
-                    </a>
+                    <div class="card-body">
+                  
+
+                        <form method="POST" action="#">
+                        @csrf
+                        <div class="row mb-3 justify-content-center d-flex text-light">
+
+                            <div class="input mb-3">
+                                <span class="h4"><label for="email" class=" col-form-label text-md-end">Digite Seu Endereço de Email</label></span>
+                                <div class="col-md-12">
+                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror p-3" name="email" value="{{ old('email') }}" required autocomplet>
+                                </div> 
+
+                                @error('email')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                @enderror
+                            </div>
+
+                            <div class="input mb-3">
+                                <span class="h4"><label for="password" class=" col-form-label text-md-end">Digite Sua Senha</label></span>
+                                <div class="col-md-12">
+                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror p-3" name="password" value="{{ old('password') }}" required autocomplet>
+                                </div> 
+
+                                @error('password')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                @enderror
+                            </div>
+                            
+                            <div class="row ps-0 mt-3 ">
+                                <div class="d-flex me-5 justify-content-between">
+                                    <button type="submit" class="btn btn-outline-danger w-50 ">
+                                    <div class="d-flex flex-row align-items-center justify-content-center me-5">
+                                        <img src="/img/angle-right-b.svg" class="logo">
+                                        <h2 class="h3">Entrar</h2>
+                                    </div>
+                                    </button>
+
+                                    <div class="d-flex align-items-end">
+                                        <a class="h5 text-info" href="{{ url('auth/register')}}">Ainda não Possui seu cadastro?<br>Cadastre-se aqui!</a>
+                                    </div>
+                                </div>
+
+                            
+                            </div>
+                        </form>
+
+                    </div>
                 </div>
-            </nav>
-       </header>
+            </div>
+        </div>
+    </div>
+</main>
+
+@endsection
       
-    </body>
-</html>
+
