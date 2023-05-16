@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Mesa;
+use App\Models\User;
+use App\Models\Horario;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class reservaController extends Controller
 {
@@ -19,9 +23,12 @@ class reservaController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create($id)
     {
-        
+        $user = Auth::user();
+        $horario = Horario::all();
+        $mesas = Mesa::find($id);
+        return view('criarReserva')->with('mesas', $mesas)->with('user', $user)->with('horario', $horario);
     }
 
     /**
