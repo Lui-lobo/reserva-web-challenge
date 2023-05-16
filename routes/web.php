@@ -53,7 +53,9 @@ Route::post('/register', function(Request $informacoes){
 });
 
 Route::resource('/reserva', reservaController::class);
+
 Route::get('/reserva/reservar/{id}', [reservaController::class, 'create']);
+Route::post('/reserva/reservar/{id}', [reservaController::class, 'store']);
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
