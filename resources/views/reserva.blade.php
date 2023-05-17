@@ -8,7 +8,7 @@
 
 <main>
     <!--Container Main start-->
-    <h1 class="h1">Escolha Qual Mesa Deseja Reservar</h1>
+    <h1 class="h1">Escolha Qual Mesa Deseja Reservar | Hoje é: {{$dias->dias_da_semana}} </h1>
     <div class="height-100 bg-light">
         <div class="container-fluid d-flex align-items-center justify-content-center flex-wrap">
             @foreach($mesas as $item)

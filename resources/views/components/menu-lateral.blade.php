@@ -8,11 +8,11 @@
             <div> <a href="/reserva" class="nav_logo"> <i class='bx bx-layer nav_logo-icon'></i> <span class="nav_logo-name">Reserva Web</span> </a>
 
                 <div class="nav_list"> 
-                  <a href="#" class="nav_link active">
+                  <a href="{{url('/reserva/')}}" class="nav_link active">
                     <i class='bx bx-user nav_icon'></i> <span class="nav_name">Reservar</span>
                   </a> 
 
-                  <a href="#" class="nav_link">
+                  <a href="{{url('/dashboard/')}}" class="nav_link">
                     <i class='bx bx-grid-alt nav_icon'></i> <span class="nav_name">Dashboard</span> 
                   </a> 
 

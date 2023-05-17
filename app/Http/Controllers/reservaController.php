@@ -6,6 +6,8 @@ use App\Models\Mesa;
 use App\Models\User;
 use App\Models\Horario;
 use App\Models\Reserva;
+use App\Models\diasdasemana;
+
 use GuzzleHttp\Psr7\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,7 +21,8 @@ class reservaController extends Controller
     public function index()
     {
         $mesas = Mesa::all();
-        return view('reserva')->with('mesas', $mesas);
+        $diasDaSemana = DiasDaSemana::all(['dias_da_semana']);
+        return view('reserva')->with('mesas', $mesas)->with('dias', $diasDaSemana[6]);
     }
 
     /**
@@ -43,17 +46,35 @@ class reservaController extends Controller
         $horario = Horario::find($id);
         $mesas = Mesa::find($id);
         $input = $request;
-        $nome_do_cliente = $request->input('name');
+        $nome = $request->input('name');
+        $horario_reservado = $request->input('horario');
+        $mesa_reservada = $request->input('mesa');
+
+        $diasDaSemana = DiasDaSemana::all(['dias_da_semana']);
+        $diaDaSemana = $diasDaSemana[6];
+
+        if($diaDaSemana === $diasDaSemana[0]) {
+            return redirect()->back()->withErrors(['message' => 'Não é possível realizar reservas de domingo']);
+        } else {
+            if(Reserva::where('horario_reservado', $horario_reservado)->exists() && Reserva::where('mesa_reservada', $mesa_reservada)->exists()) {
+                return redirect()->back()->withErrors(['message' => 'O horario já está reservado, por favor selecione outro']);
+            }
+          
     
             Reserva::create([
                 'reserva' => $cliente,
-                'nome_do_cliente' => $nome_do_cliente,
+                'nome_do_cliente' => $nome,
                 'mesa_reservada' => $request->input('mesa'),
                 'horario_reservado' => $request->input('horario'),
                 'preco_hora' => $request->input('valor'),
                 'status_id' => 1
             ]);
-            return redirect()->back();
+            return redirect()->back()->with(['message' => 'Sua reserva foi realizada com sucesso']);
+        }
+       
+        
+
+        
         
 
       

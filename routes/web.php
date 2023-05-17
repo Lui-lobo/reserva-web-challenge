@@ -1,11 +1,15 @@
 <?php
 
 use App\Http\Controllers\reservaController;
+use App\Models\Horario;
+use App\Models\Mesa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Hash;
 
 use App\Models\User;
+use App\Models\Reserva;
+
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -57,5 +61,15 @@ Route::resource('/reserva', reservaController::class);
 Route::get('/reserva/reservar/{id}', [reservaController::class, 'create']);
 Route::post('/reserva/reservar/{id}', [reservaController::class, 'store']);
 
+Route::get('/dashboard', function() {
+    $reserva = Reserva::all();
+    $mesas = Reserva::all(['mesa_reservada']);
+    $horarios = Reserva::all(['horario_reservado']);
+    $horario = Horario::find($horarios);
+    $mesa = Mesa::find($mesas);
+    $User = User::find($reserva);
+    
+    return view('dashboard')->with('reservas', $reserva)->with('mesa', $mesa)->with('user', $User)->with('horario', $horario);
+});
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

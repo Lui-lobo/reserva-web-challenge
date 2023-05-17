@@ -16,5 +16,6 @@ class DatabaseSeeder extends Seeder
         $this->call(Horarios::class);
         $this->call(User::class);
         $this->call(MesasSeeder::class);
+        $this->call(DiasDaSemana::class);
     }
 }
